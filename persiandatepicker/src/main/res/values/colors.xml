@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="persianDatePickerBackgroundColor">#FFFFFF</color>
+    <color name="persianDatePickerStrokeColor">#D8D8D8</color>
+    <color name="persianDatePickerBoxStrokeColor">#A0A0A0</color>
+    <color name="persianDatePickerBoxBackgroundColor">#07CED8</color>
+    <color name="persianDatePickerItemTextColor">#7E7D7D</color>
+    <color name="persianDatePickerSelectedItemTextColor">#252525</color>
+    <color name="persianDatePickerJumpTodayTextColor">#252525</color>
+    <color name="persianDatePickerButtonTextColor">#FFFFFF</color>
+    <color name="persianDatePickerButtonBackground">#288ACF</color>
+
+</resources>

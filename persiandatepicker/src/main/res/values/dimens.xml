@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="persianDatePickerRadius">5dp</dimen>
+    <dimen name="persianDatePickerBoxRadius">5dp</dimen>
+    <dimen name="persianDatePickerStroke">1dp</dimen>
+    <dimen name="persianDatePickerBoxStroke">1dp</dimen>
+    <dimen name="persianDatePickerHeight">40dp</dimen>
+    <dimen name="persianDatePickerItemSpace">20dp</dimen>
+    <dimen name="persianDatePickerItemTextSize">14sp</dimen>
+    <dimen name="persianDatePickerJumpTodayTextSize">13sp</dimen>
+    <dimen name="persianDatePickerJumpTodayPadding">10dp</dimen>
+    <dimen name="persianDatePickerButtonTextSize">13sp</dimen>
+    <dimen name="persianDatePickerButtonPadding">10dp</dimen>
+
+</resources>

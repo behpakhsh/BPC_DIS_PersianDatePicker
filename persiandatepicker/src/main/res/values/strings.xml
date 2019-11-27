@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="app_name">Dis_PersianDatePicker</string>
+
+    <string name="persianDatePickerItemFontPath">IRANSansMobile.ttf</string>
+    <string name="persianDatePickerJumpToday">برو به امروز</string>
+    <string name="persianDatePickerSubmit">تایید</string>
+
+</resources>
