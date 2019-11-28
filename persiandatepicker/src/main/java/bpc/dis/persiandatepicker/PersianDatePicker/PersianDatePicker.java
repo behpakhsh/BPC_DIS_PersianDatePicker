@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +45,10 @@ public class PersianDatePicker extends DialogFragment {
     private int selectedItemTextColor;
     private int jumpTodayTextColor;
     private int jumpTodayTextSize;
+    private String jumpTodayText;
     private int buttonBackgroundRes;
     private int buttonTextColor;
-    private String jumpTodayText;
+    private int buttonTextSize;
     private String buttonText;
     private Typeface font;
     private boolean closeEnable;
@@ -97,7 +99,7 @@ public class PersianDatePicker extends DialogFragment {
         setBoxAttribute();
         setWheelPickerAttribute();
         setJumpTodayAttribute();
-        setSubmitAttribute();
+        setButtonAttribute();
         setCloseAttribute();
 
         loadDate();
@@ -240,6 +242,10 @@ public class PersianDatePicker extends DialogFragment {
             buttonTextColor = getResources().getColor(R.color.persianDatePickerButtonTextColor);
         }
 
+        if (buttonTextSize == 0) {
+            buttonTextSize = (int) getResources().getDimension(R.dimen.persianDatePickerButtonTextSize);
+        }
+
         if (font == null) {
             if (getActivity() != null) {
                 font = Typeface.createFromAsset(getActivity().getAssets(), getResources().getString(R.string.itemFontPath));
@@ -300,6 +306,9 @@ public class PersianDatePicker extends DialogFragment {
         wpDay.setTypeface(font);
         wpMonth.setTypeface(font);
         wpYear.setTypeface(font);
+        wpDay.setCyclic(true);
+        wpMonth.setCyclic(true);
+        wpYear.setCyclic(true);
     }
 
     private void setJumpTodayAttribute() {
@@ -310,12 +319,13 @@ public class PersianDatePicker extends DialogFragment {
             }
         });
         btnJumpToday.setTextColor(jumpTodayTextColor);
+        btnJumpToday.setTextSize(TypedValue.COMPLEX_UNIT_PX, jumpTodayTextSize);
         btnJumpToday.setTextSize(jumpTodayTextSize);
         btnJumpToday.setText(jumpTodayText);
         btnJumpToday.setTypeface(font);
     }
 
-    private void setSubmitAttribute() {
+    private void setButtonAttribute() {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
@@ -323,6 +333,7 @@ public class PersianDatePicker extends DialogFragment {
             }
         });
         btnSubmit.setBackgroundResource(buttonBackgroundRes);
+        btnSubmit.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonTextSize);
         btnSubmit.setTextColor(buttonTextColor);
         btnSubmit.setText(buttonText);
         btnSubmit.setTypeface(font);
@@ -362,6 +373,7 @@ public class PersianDatePicker extends DialogFragment {
         private int jumpTodayTextSize = 0;
         private int buttonBackgroundRes = 0;
         private int buttonTextColor = 0;
+        private int buttonTextSize = 0;
         private String jumpTodayText = null;
         private String buttonText = null;
         private Typeface font = null;
@@ -435,6 +447,10 @@ public class PersianDatePicker extends DialogFragment {
             return this;
         }
 
+        public void setButtonTextSize(int buttonTextSize) {
+            this.buttonTextSize = buttonTextSize;
+        }
+
         public Builder setDate(Date date) {
             this.date = date;
             return this;
@@ -478,6 +494,7 @@ public class PersianDatePicker extends DialogFragment {
             datePickerConfig.buttonBackgroundRes = buttonBackgroundRes;
             datePickerConfig.buttonText = buttonText;
             datePickerConfig.buttonTextColor = buttonTextColor;
+            datePickerConfig.buttonTextSize = buttonTextSize;
             datePickerConfig.date = date;
             datePickerConfig.closeEnable = closeEnable;
             datePickerConfig.closeDrawable = closeDrawable;
