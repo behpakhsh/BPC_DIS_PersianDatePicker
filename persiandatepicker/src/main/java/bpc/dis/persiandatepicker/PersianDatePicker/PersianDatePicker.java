@@ -1,5 +1,6 @@
 package bpc.dis.persiandatepicker.PersianDatePicker;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -71,6 +72,10 @@ public class PersianDatePicker extends DialogFragment {
     private List<String> day = new ArrayList<>();
     private boolean isLeapYear;
 
+    public static float convertSpToPixels(float sp, Context context) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
+    }
+
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -120,7 +125,6 @@ public class PersianDatePicker extends DialogFragment {
         super.onResume();
         DialogSizeHelper.defineDialogSize(getDialog().getWindow(), 0.90, 0.35);
     }
-
 
     private void loadDate() {
         SolarCalendar solarCalendar = new SolarCalendar();
@@ -190,7 +194,6 @@ public class PersianDatePicker extends DialogFragment {
         }
         dismiss();
     }
-
 
     private void initValues() {
 
@@ -266,7 +269,6 @@ public class PersianDatePicker extends DialogFragment {
         show(fragmentManager, getClass().getName());
     }
 
-
     private void setDialogAttribute() {
         clPersianDatePicker.setBackgroundResource(backgroundRes);
     }
@@ -319,7 +321,10 @@ public class PersianDatePicker extends DialogFragment {
             }
         });
         btnJumpToday.setTextColor(jumpTodayTextColor);
-        btnJumpToday.setTextSize(TypedValue.COMPLEX_UNIT_PX, jumpTodayTextSize);
+
+
+        btnJumpToday.setTextSize(convertSpToPixels(jumpTodayTextSize, getContext()));
+
         btnJumpToday.setTextSize(jumpTodayTextSize);
         btnJumpToday.setText(jumpTodayText);
         btnJumpToday.setTypeface(font);
@@ -333,6 +338,10 @@ public class PersianDatePicker extends DialogFragment {
             }
         });
         btnSubmit.setBackgroundResource(buttonBackgroundRes);
+
+
+        btnSubmit.setTextSize(convertSpToPixels(buttonTextSize, getContext()));
+
         btnSubmit.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonTextSize);
         btnSubmit.setTextColor(buttonTextColor);
         btnSubmit.setText(buttonText);
