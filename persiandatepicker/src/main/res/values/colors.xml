@@ -2,6 +2,7 @@
 <resources>
 
     <color name="persianDatePickerBackgroundColor">#FFFFFF</color>
+    <color name="persianDatePickerJumpTodayBackgroundColor">?attr/selectableItemBackgroundBorderless</color>
     <color name="persianDatePickerStrokeColor">#D8D8D8</color>
     <color name="persianDatePickerBoxStrokeColor">#A0A0A0</color>
     <color name="persianDatePickerBoxBackgroundColor">#07CED8</color>

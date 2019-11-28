@@ -374,7 +374,7 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
         private int jumpTodayTextSize = 0;
         private int buttonBackgroundRes = 0;
         private int buttonTextColor = 0;
-        private String jumpToday = null;
+        private String jumpTodayText = null;
         private String buttonText = null;
         private Typeface font = null;
 
@@ -423,8 +423,8 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
             return this;
         }
 
-        public Builder setJumpToday(String jumpToday) {
-            this.jumpToday = jumpToday;
+        public Builder setJumpTodayText(String jumpTodayText) {
+            this.jumpTodayText = jumpTodayText;
             return this;
         }
 
@@ -465,7 +465,7 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
             datePickerConfig.setSelectedItemTextColor(selectedItemTextColor);
             datePickerConfig.setJumpTodayTextColor(jumpTodayTextColor);
             datePickerConfig.setJumpTodayTextSize(jumpTodayTextSize);
-            datePickerConfig.setJumpTodayText(jumpToday);
+            datePickerConfig.setJumpTodayText(jumpTodayText);
             datePickerConfig.setButtonBackgroundRes(buttonBackgroundRes);
             datePickerConfig.setButtonText(buttonText);
             datePickerConfig.setButtonTextColor(buttonTextColor);
