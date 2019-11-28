@@ -347,7 +347,7 @@ public class PersianDatePicker extends DialogFragment {
     }
 
 
-    public class Builder {
+    public static class Builder {
 
         private Date date = new Date();
         private PersianDatePickerListener persianDatePickerListener = null;
