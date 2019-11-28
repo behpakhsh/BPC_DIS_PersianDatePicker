@@ -447,8 +447,9 @@ public class PersianDatePicker extends DialogFragment {
             return this;
         }
 
-        public void setButtonTextSize(int buttonTextSize) {
+        public Builder setButtonTextSize(int buttonTextSize) {
             this.buttonTextSize = buttonTextSize;
+            return this;
         }
 
         public Builder setDate(Date date) {
@@ -461,20 +462,24 @@ public class PersianDatePicker extends DialogFragment {
             return this;
         }
 
-        public void setCloseEnable(boolean closeEnable) {
+        public Builder setCloseEnable(boolean closeEnable) {
             this.closeEnable = closeEnable;
+            return this;
         }
 
-        public void setCloseDrawable(Drawable closeDrawable) {
+        public Builder setCloseDrawable(Drawable closeDrawable) {
             this.closeDrawable = closeDrawable;
+            return this;
         }
 
-        public void setCloseTintColorRes(int closeTintColorRes) {
+        public Builder setCloseTintColorRes(int closeTintColorRes) {
             this.closeTintColorRes = closeTintColorRes;
+            return this;
         }
 
-        public void setCancelable(boolean cancelable) {
+        public Builder setCancelable(boolean cancelable) {
             this.cancelable = cancelable;
+            return this;
         }
 
         public PersianDatePicker build() {
