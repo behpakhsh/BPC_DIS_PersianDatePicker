@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -295,8 +296,8 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
 
     }
 
-    public void show() {
-        show(getChildFragmentManager(), getClass().getName());
+    public void show(FragmentManager fragmentManager) {
+        show(fragmentManager, getClass().getName());
     }
 
     private void setPersianDatePickerListener(PersianDatePickerListener persianDatePickerListener) {
