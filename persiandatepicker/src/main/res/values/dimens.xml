@@ -12,5 +12,6 @@
     <dimen name="persianDatePickerJumpTodayPadding">10dp</dimen>
     <dimen name="persianDatePickerButtonTextSize">13sp</dimen>
     <dimen name="persianDatePickerButtonPadding">10dp</dimen>
+    <dimen name="persianDatePickerClosePadding">10dp</dimen>
 
 </resources>

@@ -3,6 +3,7 @@ package bpc.dis.persiandatepicker.PersianDatePicker;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,9 @@ import android.view.Window;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -29,11 +32,33 @@ import bpc.dis.utilities.JalaliCalendar.JalaliCalendar;
 import bpc.dis.utilities.LeapYearHelper.LeapYearHelper;
 import bpc.dis.utilities.SolarCalendar.SolarCalendar;
 
-public class PersianDatePicker extends DialogFragment implements WheelPicker.OnItemSelectedListener {
+public class PersianDatePicker extends DialogFragment {
+
+    public static Builder builder;
+
+    PersianDatePickerListener persianDatePickerListener;
+    Date date;
+    int backgroundRes;
+    int boxBackgroundRes;
+    int itemSpace;
+    int itemTextColor;
+    int itemTextSize;
+    int selectedItemTextColor;
+    int jumpTodayTextColor;
+    int jumpTodayTextSize;
+    int buttonBackgroundRes;
+    int buttonTextColor;
+    String jumpTodayText;
+    String buttonText;
+    Typeface font;
+    boolean closeEnable;
+    Drawable closeDrawable;
+    int closeTintColorRes;
 
     private WheelPicker wpDay;
     private WheelPicker wpMonth;
     private WheelPicker wpYear;
+    private AppCompatImageButton btnClose;
     private AppCompatButton btnSubmit;
     private AppCompatButton btnJumpToday;
     private ConstraintLayout clPersianDatePicker;
@@ -46,29 +71,9 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
     private List<String> day = new ArrayList<>();
     private boolean isLeapYear;
 
-    private PersianDatePickerListener persianDatePickerListener = null;
-    private Date date = null;
-
-    private int backgroundRes = 0;
-    private int boxBackgroundRes = 0;
-    private int itemSpace = 0;
-    private int itemTextColor = 0;
-    private int itemTextSize = 0;
-    private int selectedItemTextColor = 0;
-    private int jumpTodayTextColor = 0;
-    private int jumpTodayTextSize = 0;
-    private int buttonBackgroundRes = 0;
-    private int buttonTextColor = 0;
-    private String jumpTodayText = null;
-    private String buttonText = null;
-    private Typeface font = null;
-
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        initValues();
-
-        View view = inflater.inflate(R.layout.persian_date_picker, container, false);
         if (getDialog() != null) {
             if (getDialog().getWindow() != null) {
                 getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -76,9 +81,13 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
             }
         }
 
+        initValues();
+
+        View view = inflater.inflate(R.layout.persian_date_picker, container, false);
         wpDay = view.findViewById(R.id.wp_day);
         wpMonth = view.findViewById(R.id.wp_month);
         wpYear = view.findViewById(R.id.wp_year);
+        btnClose = view.findViewById(R.id.btn_close);
         btnSubmit = view.findViewById(R.id.btn_submit);
         btnJumpToday = view.findViewById(R.id.btn_jump_today);
         clPersianDatePicker = view.findViewById(R.id.cl_persian_date_picker);
@@ -91,27 +100,10 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
         setWheelPickerAttribute();
         setJumpTodayAttribute();
         setSubmitAttribute();
+        setCloseAttribute();
 
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view1) {
-                PersianDatePicker.this.returnDate();
-            }
-        });
-        btnJumpToday.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view12) {
-                PersianDatePicker.this.findToday(Calendar.getInstance().getTime());
-            }
-        });
-        wpYear.setOnItemSelectedListener(this);
-        wpMonth.setOnItemSelectedListener(this);
-        SolarCalendar solarCalendar = new SolarCalendar();
-        isLeapYear = LeapYearHelper.checkLeapYear(1350);
-        setYear(solarCalendar.year);
-        setMonth();
-        setDay(1);
-        findToday(date);
+        loadDate();
+
         return view;
     }
 
@@ -129,14 +121,14 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
         DialogSizeHelper.defineDialogSize(getDialog().getWindow(), 0.90, 0.35);
     }
 
-    @Override
-    public void onItemSelected(WheelPicker picker, Object data, int position) {
-        if (picker.getId() == wpYear.getId()) {
-            isLeapYear = LeapYearHelper.checkLeapYear(Integer.parseInt(years.get(position)));
-            setDay(wpMonth.getCurrentItemPosition() + 1);
-        } else if (picker.getId() == wpMonth.getId()) {
-            setDay(position + 1);
-        }
+
+    private void loadDate() {
+        SolarCalendar solarCalendar = new SolarCalendar();
+        isLeapYear = LeapYearHelper.checkLeapYear(1350);
+        setYear(solarCalendar.year);
+        setMonth();
+        setDay(1);
+        findToday(date);
     }
 
     private void findToday(Date date) {
@@ -198,47 +190,6 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
         dismiss();
     }
 
-    private void setDialogAttribute() {
-        clPersianDatePicker.setBackgroundResource(backgroundRes);
-    }
-
-    private void setBoxAttribute() {
-        vBoxDay.setBackgroundResource(boxBackgroundRes);
-        vBoxMonth.setBackgroundResource(boxBackgroundRes);
-        vBoxYear.setBackgroundResource(boxBackgroundRes);
-    }
-
-    private void setWheelPickerAttribute() {
-        wpDay.setItemSpace(itemSpace);
-        wpMonth.setItemSpace(itemSpace);
-        wpYear.setItemSpace(itemSpace);
-        wpDay.setItemTextColor(itemTextColor);
-        wpMonth.setItemTextColor(itemTextColor);
-        wpYear.setItemTextColor(itemTextColor);
-        wpDay.setItemTextSize(itemTextSize);
-        wpMonth.setItemTextSize(itemTextSize);
-        wpYear.setItemTextSize(itemTextSize);
-        wpDay.setSelectedItemTextColor(selectedItemTextColor);
-        wpMonth.setSelectedItemTextColor(selectedItemTextColor);
-        wpYear.setSelectedItemTextColor(selectedItemTextColor);
-        wpDay.setTypeface(font);
-        wpMonth.setTypeface(font);
-        wpYear.setTypeface(font);
-    }
-
-    private void setJumpTodayAttribute() {
-        btnJumpToday.setTextColor(jumpTodayTextColor);
-        btnJumpToday.setTextSize(jumpTodayTextSize);
-        btnJumpToday.setText(jumpTodayText);
-        btnJumpToday.setTypeface(font);
-    }
-
-    private void setSubmitAttribute() {
-        btnSubmit.setBackgroundResource(buttonBackgroundRes);
-        btnSubmit.setTextColor(buttonTextColor);
-        btnSubmit.setText(buttonText);
-        btnSubmit.setTypeface(font);
-    }
 
     private void initValues() {
 
@@ -291,7 +242,17 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
         }
 
         if (font == null) {
-            font = Typeface.createFromAsset(getActivity().getAssets(), getResources().getString(R.string.itemFontPath));
+            if (getActivity() != null) {
+                font = Typeface.createFromAsset(getActivity().getAssets(), getResources().getString(R.string.itemFontPath));
+            }
+        }
+
+        if (closeDrawable == null) {
+            closeDrawable = getResources().getDrawable(R.drawable.ic_close);
+        }
+
+        if (closeTintColorRes == 0) {
+            closeTintColorRes = R.color.persianDatePickerCloseColor;
         }
 
     }
@@ -300,177 +261,89 @@ public class PersianDatePicker extends DialogFragment implements WheelPicker.OnI
         show(fragmentManager, getClass().getName());
     }
 
-    private void setPersianDatePickerListener(PersianDatePickerListener persianDatePickerListener) {
-        this.persianDatePickerListener = persianDatePickerListener;
+
+    private void setDialogAttribute() {
+        clPersianDatePicker.setBackgroundResource(backgroundRes);
     }
 
-    private void setBackgroundRes(int backgroundRes) {
-        this.backgroundRes = backgroundRes;
+    private void setBoxAttribute() {
+        vBoxDay.setBackgroundResource(boxBackgroundRes);
+        vBoxMonth.setBackgroundResource(boxBackgroundRes);
+        vBoxYear.setBackgroundResource(boxBackgroundRes);
     }
 
-    private void setBoxBackgroundRes(int boxBackgroundRes) {
-        this.boxBackgroundRes = boxBackgroundRes;
+    private void setWheelPickerAttribute() {
+        wpYear.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(WheelPicker picker, Object data, int position) {
+                isLeapYear = LeapYearHelper.checkLeapYear(Integer.parseInt(years.get(position)));
+                setDay(wpMonth.getCurrentItemPosition() + 1);
+            }
+        });
+        wpMonth.setOnItemSelectedListener(new WheelPicker.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(WheelPicker picker, Object data, int position) {
+                setDay(position + 1);
+            }
+        });
+        wpDay.setItemSpace(itemSpace);
+        wpMonth.setItemSpace(itemSpace);
+        wpYear.setItemSpace(itemSpace);
+        wpDay.setItemTextColor(itemTextColor);
+        wpMonth.setItemTextColor(itemTextColor);
+        wpYear.setItemTextColor(itemTextColor);
+        wpDay.setItemTextSize(itemTextSize);
+        wpMonth.setItemTextSize(itemTextSize);
+        wpYear.setItemTextSize(itemTextSize);
+        wpDay.setSelectedItemTextColor(selectedItemTextColor);
+        wpMonth.setSelectedItemTextColor(selectedItemTextColor);
+        wpYear.setSelectedItemTextColor(selectedItemTextColor);
+        wpDay.setTypeface(font);
+        wpMonth.setTypeface(font);
+        wpYear.setTypeface(font);
     }
 
-    private void setItemSpace(int itemSpace) {
-        this.itemSpace = itemSpace;
+    private void setJumpTodayAttribute() {
+        btnJumpToday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view12) {
+                PersianDatePicker.this.findToday(Calendar.getInstance().getTime());
+            }
+        });
+        btnJumpToday.setTextColor(jumpTodayTextColor);
+        btnJumpToday.setTextSize(jumpTodayTextSize);
+        btnJumpToday.setText(jumpTodayText);
+        btnJumpToday.setTypeface(font);
     }
 
-    private void setItemTextColor(int itemTextColor) {
-        this.itemTextColor = itemTextColor;
+    private void setSubmitAttribute() {
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
+                PersianDatePicker.this.returnDate();
+            }
+        });
+        btnSubmit.setBackgroundResource(buttonBackgroundRes);
+        btnSubmit.setTextColor(buttonTextColor);
+        btnSubmit.setText(buttonText);
+        btnSubmit.setTypeface(font);
     }
 
-    private void setItemTextSize(int itemTextSize) {
-        this.itemTextSize = itemTextSize;
-    }
-
-    private void setSelectedItemTextColor(int selectedItemTextColor) {
-        this.selectedItemTextColor = selectedItemTextColor;
-    }
-
-    private void setJumpTodayTextColor(int jumpTodayTextColor) {
-        this.jumpTodayTextColor = jumpTodayTextColor;
-    }
-
-    private void setJumpTodayTextSize(int jumpTodayTextSize) {
-        this.jumpTodayTextSize = jumpTodayTextSize;
-    }
-
-    private void setJumpTodayText(String jumpTodayText) {
-        this.jumpTodayText = jumpTodayText;
-    }
-
-    private void setButtonBackgroundRes(int buttonBackgroundRes) {
-        this.buttonBackgroundRes = buttonBackgroundRes;
-    }
-
-    private void setButtonText(String buttonText) {
-        this.buttonText = buttonText;
-    }
-
-    private void setButtonTextColor(int buttonTextColor) {
-        this.buttonTextColor = buttonTextColor;
-    }
-
-    private void setDate(Date date) {
-        this.date = date;
-    }
-
-    private void setFont(Typeface font) {
-        this.font = font;
-    }
-
-    public static class Builder {
-
-        private Date date = new Date();
-        private PersianDatePickerListener persianDatePickerListener = null;
-        private int backgroundRes = 0;
-        private int boxBackgroundRes = 0;
-        private int itemSpace = 0;
-        private int itemTextColor = 0;
-        private int itemTextSize = 0;
-        private int selectedItemTextColor = 0;
-        private int jumpTodayTextColor = 0;
-        private int jumpTodayTextSize = 0;
-        private int buttonBackgroundRes = 0;
-        private int buttonTextColor = 0;
-        private String jumpTodayText = null;
-        private String buttonText = null;
-        private Typeface font = null;
-
-        public Builder setPersianDatePickerListener(PersianDatePickerListener persianDatePickerListener) {
-            this.persianDatePickerListener = persianDatePickerListener;
-            return this;
-        }
-
-        public Builder setBackgroundRes(int backgroundRes) {
-            this.backgroundRes = backgroundRes;
-            return this;
-        }
-
-        public Builder setBoxBackgroundRes(int boxBackgroundRes) {
-            this.boxBackgroundRes = boxBackgroundRes;
-            return this;
-        }
-
-        public Builder setItemSpace(int itemSpace) {
-            this.itemSpace = itemSpace;
-            return this;
-        }
-
-        public Builder setItemTextColor(int itemTextColor) {
-            this.itemTextColor = itemTextColor;
-            return this;
-        }
-
-        public Builder setItemTextSize(int itemTextSize) {
-            this.itemTextSize = itemTextSize;
-            return this;
-        }
-
-        public Builder setSelectedItemTextColor(int selectedItemTextColor) {
-            this.selectedItemTextColor = selectedItemTextColor;
-            return this;
-        }
-
-        public Builder setJumpTodayTextColor(int jumpTodayTextColor) {
-            this.jumpTodayTextColor = jumpTodayTextColor;
-            return this;
-        }
-
-        public Builder setJumpTodayTextSize(int jumpTodayTextSize) {
-            this.jumpTodayTextSize = jumpTodayTextSize;
-            return this;
-        }
-
-        public Builder setJumpTodayText(String jumpTodayText) {
-            this.jumpTodayText = jumpTodayText;
-            return this;
-        }
-
-        public Builder setButtonBackgroundRes(int buttonBackgroundRes) {
-            this.buttonBackgroundRes = buttonBackgroundRes;
-            return this;
-        }
-
-        public Builder setButtonText(String buttonText) {
-            this.buttonText = buttonText;
-            return this;
-        }
-
-        public Builder setButtonTextColor(int buttonTextColor) {
-            this.buttonTextColor = buttonTextColor;
-            return this;
-        }
-
-        public Builder setDate(Date date) {
-            this.date = date;
-            return this;
-        }
-
-        public Builder setFont(Typeface font) {
-            this.font = font;
-            return this;
-        }
-
-        public PersianDatePicker build() {
-            PersianDatePicker datePickerConfig = new PersianDatePicker();
-            datePickerConfig.setPersianDatePickerListener(persianDatePickerListener);
-            datePickerConfig.setBackgroundRes(backgroundRes);
-            datePickerConfig.setBoxBackgroundRes(boxBackgroundRes);
-            datePickerConfig.setItemSpace(itemSpace);
-            datePickerConfig.setFont(font);
-            datePickerConfig.setItemTextColor(itemTextColor);
-            datePickerConfig.setItemTextSize(itemTextSize);
-            datePickerConfig.setSelectedItemTextColor(selectedItemTextColor);
-            datePickerConfig.setJumpTodayTextColor(jumpTodayTextColor);
-            datePickerConfig.setJumpTodayTextSize(jumpTodayTextSize);
-            datePickerConfig.setJumpTodayText(jumpTodayText);
-            datePickerConfig.setButtonBackgroundRes(buttonBackgroundRes);
-            datePickerConfig.setButtonText(buttonText);
-            datePickerConfig.setButtonTextColor(buttonTextColor);
-            datePickerConfig.setDate(date);
-            return datePickerConfig;
+    private void setCloseAttribute() {
+        if (closeEnable) {
+            btnClose.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dismiss();
+                }
+            });
+            btnClose.setVisibility(View.VISIBLE);
+            if (getContext() != null) {
+                btnClose.setColorFilter(ContextCompat.getColor(getContext(), closeTintColorRes), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
+            btnClose.setImageDrawable(closeDrawable);
+        } else {
+            btnClose.setVisibility(View.GONE);
         }
 
     }
