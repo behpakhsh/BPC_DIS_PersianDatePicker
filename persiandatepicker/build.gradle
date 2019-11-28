@@ -34,4 +34,5 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation "com.jakewharton:butterknife:10.0.0"
     annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"
+    implementation 'com.github.behpakhsh:BPC_DIS_Utilities:1.0.0'
 }
