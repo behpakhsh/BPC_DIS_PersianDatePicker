@@ -11,7 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/persianDatePickerHeight"
         android:alpha="0.5"
-        app:layout_constraintBottom_toTopOf="@id/btn_jump_today"
+        app:layout_constraintBottom_toBottomOf="@id/wp_year"
         app:layout_constraintEnd_toEndOf="@id/wp_year"
         app:layout_constraintStart_toStartOf="@id/wp_year"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,7 +22,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/persianDatePickerHeight"
         android:alpha="0.5"
-        app:layout_constraintBottom_toTopOf="@id/btn_jump_today"
+        app:layout_constraintBottom_toBottomOf="@id/wp_day"
         app:layout_constraintEnd_toEndOf="@id/wp_day"
         app:layout_constraintStart_toStartOf="@id/wp_day"
         app:layout_constraintTop_toTopOf="parent"
@@ -33,7 +33,7 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/persianDatePickerHeight"
         android:alpha="0.5"
-        app:layout_constraintBottom_toTopOf="@id/btn_jump_today"
+        app:layout_constraintBottom_toBottomOf="@id/wp_month"
         app:layout_constraintEnd_toEndOf="@id/wp_month"
         app:layout_constraintStart_toStartOf="@id/wp_month"
         app:layout_constraintTop_toTopOf="parent"
@@ -44,7 +44,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/btn_jump_today"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/wp_month"
         app:layout_constraintTop_toTopOf="parent"
@@ -57,7 +56,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/btn_jump_today"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -70,7 +68,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:layout_constraintBottom_toTopOf="@id/btn_jump_today"
         app:layout_constraintEnd_toStartOf="@id/wp_month"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -88,9 +85,9 @@
         android:gravity="center"
         android:padding="@dimen/persianDatePickerJumpTodayPadding"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/btn_submit"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wp_month" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_submit"
@@ -103,13 +100,14 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_jump_today" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/btn_close"
-        android:background="?attr/selectableItemBackgroundBorderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="@dimen/persianDatePickerClosePadding"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
