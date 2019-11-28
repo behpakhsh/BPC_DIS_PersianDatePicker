@@ -8,9 +8,9 @@
     <dimen name="persianDatePickerHeight">40dp</dimen>
     <dimen name="persianDatePickerItemSpace">20dp</dimen>
     <dimen name="persianDatePickerItemTextSize">14sp</dimen>
-    <dimen name="persianDatePickerJumpTodayTextSize">13sp</dimen>
+    <dimen name="persianDatePickerJumpTodayTextSize">13dp</dimen>
     <dimen name="persianDatePickerJumpTodayPadding">10dp</dimen>
-    <dimen name="persianDatePickerButtonTextSize">13sp</dimen>
+    <dimen name="persianDatePickerButtonTextSize">13dp</dimen>
     <dimen name="persianDatePickerButtonPadding">10dp</dimen>
     <dimen name="persianDatePickerClosePadding">10dp</dimen>
 

@@ -131,13 +131,14 @@ public class PersianDatePicker extends DialogFragment {
 
     private void findToday(Date date) {
         SolarCalendar solarCalendar = new SolarCalendar(date);
-        for (int i = 0; i < years.size(); i++)
+        for (int i = 0; i < years.size(); i++) {
             if (years.get(i).equals(String.valueOf(solarCalendar.year))) {
-                wpYear.setSelectedItemPosition(i, false);
+                wpYear.setSelectedItemPosition(i, true);
                 break;
             }
-        wpMonth.setSelectedItemPosition(solarCalendar.month - 1, false);
-        wpDay.setSelectedItemPosition(solarCalendar.day - 1, false);
+        }
+        wpMonth.setSelectedItemPosition(solarCalendar.month - 1, true);
+        wpDay.setSelectedItemPosition(solarCalendar.day - 1, true);
     }
 
     private void setDay(int month) {
@@ -305,7 +306,7 @@ public class PersianDatePicker extends DialogFragment {
         btnJumpToday.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view12) {
-                PersianDatePicker.this.findToday(Calendar.getInstance().getTime());
+                findToday(Calendar.getInstance().getTime());
             }
         });
         btnJumpToday.setTextColor(jumpTodayTextColor);
@@ -318,7 +319,7 @@ public class PersianDatePicker extends DialogFragment {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                PersianDatePicker.this.returnDate();
+                returnDate();
             }
         });
         btnSubmit.setBackgroundResource(buttonBackgroundRes);
