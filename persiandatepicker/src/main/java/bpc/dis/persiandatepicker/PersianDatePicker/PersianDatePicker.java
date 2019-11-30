@@ -1,12 +1,10 @@
 package bpc.dis.persiandatepicker.PersianDatePicker;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +31,7 @@ import bpc.dis.utilities.DialogSizeHelper.DialogSizeHelper;
 import bpc.dis.utilities.JalaliCalendar.JalaliCalendar;
 import bpc.dis.utilities.LeapYearHelper.LeapYearHelper;
 import bpc.dis.utilities.SolarCalendar.SolarCalendar;
+import bpc.dis.utilities.TextSizeHelper.TextSizeHelper;
 
 public class PersianDatePicker extends DialogFragment {
 
@@ -42,14 +41,14 @@ public class PersianDatePicker extends DialogFragment {
     private int boxBackgroundRes;
     private int itemSpace;
     private int itemTextColor;
-    private int itemTextSize;
+    private float itemTextSize;
     private int selectedItemTextColor;
     private int jumpTodayTextColor;
-    private int jumpTodayTextSize;
+    private float jumpTodayTextSize;
     private String jumpTodayText;
     private int buttonBackgroundRes;
     private int buttonTextColor;
-    private int buttonTextSize;
+    private float buttonTextSize;
     private String buttonText;
     private Typeface font;
     private boolean closeEnable;
@@ -71,10 +70,6 @@ public class PersianDatePicker extends DialogFragment {
     private List<String> month = new ArrayList<>();
     private List<String> day = new ArrayList<>();
     private boolean isLeapYear;
-
-    public static float convertSpToPixels(float sp, Context context) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
-    }
 
     @NonNull
     @Override
@@ -299,9 +294,9 @@ public class PersianDatePicker extends DialogFragment {
         wpDay.setItemTextColor(itemTextColor);
         wpMonth.setItemTextColor(itemTextColor);
         wpYear.setItemTextColor(itemTextColor);
-        wpDay.setItemTextSize(itemTextSize);
-        wpMonth.setItemTextSize(itemTextSize);
-        wpYear.setItemTextSize(itemTextSize);
+        wpDay.setItemTextSize((int) itemTextSize);
+        wpMonth.setItemTextSize((int) itemTextSize);
+        wpYear.setItemTextSize((int) itemTextSize);
         wpDay.setSelectedItemTextColor(selectedItemTextColor);
         wpMonth.setSelectedItemTextColor(selectedItemTextColor);
         wpYear.setSelectedItemTextColor(selectedItemTextColor);
@@ -322,8 +317,9 @@ public class PersianDatePicker extends DialogFragment {
         });
         btnJumpToday.setTextColor(jumpTodayTextColor);
 
-        float textSize = jumpTodayTextSize / getResources().getDisplayMetrics().density;
-        btnJumpToday.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize);
+        if (getContext() != null) {
+            TextSizeHelper.changeTextSizeWithDipUnit(getContext(), btnJumpToday, jumpTodayTextSize);
+        }
 
         btnJumpToday.setText(jumpTodayText);
         btnJumpToday.setTypeface(font);
@@ -338,8 +334,9 @@ public class PersianDatePicker extends DialogFragment {
         });
         btnSubmit.setBackgroundResource(buttonBackgroundRes);
 
-        float textSize = buttonTextSize / getResources().getDisplayMetrics().density;
-        btnSubmit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize);
+        if (getContext() != null) {
+            TextSizeHelper.changeTextSizeWithDipUnit(getContext(), btnSubmit, buttonTextSize);
+        }
 
         btnSubmit.setTextColor(buttonTextColor);
         btnSubmit.setText(buttonText);
@@ -374,13 +371,13 @@ public class PersianDatePicker extends DialogFragment {
         private int boxBackgroundRes = 0;
         private int itemSpace = 0;
         private int itemTextColor = 0;
-        private int itemTextSize = 0;
+        private float itemTextSize = 0;
         private int selectedItemTextColor = 0;
         private int jumpTodayTextColor = 0;
-        private int jumpTodayTextSize = 0;
+        private float jumpTodayTextSize = 0;
         private int buttonBackgroundRes = 0;
         private int buttonTextColor = 0;
-        private int buttonTextSize = 0;
+        private float buttonTextSize = 0;
         private String jumpTodayText = null;
         private String buttonText = null;
         private Typeface font = null;
@@ -414,7 +411,7 @@ public class PersianDatePicker extends DialogFragment {
             return this;
         }
 
-        public Builder setItemTextSize(int itemTextSize) {
+        public Builder setItemTextSize(float itemTextSize) {
             this.itemTextSize = itemTextSize;
             return this;
         }
@@ -429,7 +426,7 @@ public class PersianDatePicker extends DialogFragment {
             return this;
         }
 
-        public Builder setJumpTodayTextSize(int jumpTodayTextSize) {
+        public Builder setJumpTodayTextSize(float jumpTodayTextSize) {
             this.jumpTodayTextSize = jumpTodayTextSize;
             return this;
         }
@@ -454,7 +451,7 @@ public class PersianDatePicker extends DialogFragment {
             return this;
         }
 
-        public Builder setButtonTextSize(int buttonTextSize) {
+        public Builder setButtonTextSize(float buttonTextSize) {
             this.buttonTextSize = buttonTextSize;
             return this;
         }
