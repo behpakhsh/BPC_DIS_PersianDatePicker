@@ -322,8 +322,8 @@ public class PersianDatePicker extends DialogFragment {
         });
         btnJumpToday.setTextColor(jumpTodayTextColor);
 
-
-        btnJumpToday.setTextSize(convertSpToPixels(jumpTodayTextSize, getContext()));
+        float textSize = jumpTodayTextSize / getResources().getDisplayMetrics().density;
+        btnJumpToday.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize);
 
         btnJumpToday.setTextSize(jumpTodayTextSize);
         btnJumpToday.setText(jumpTodayText);
@@ -339,8 +339,8 @@ public class PersianDatePicker extends DialogFragment {
         });
         btnSubmit.setBackgroundResource(buttonBackgroundRes);
 
-
-        btnSubmit.setTextSize(convertSpToPixels(buttonTextSize, getContext()));
+        float textSize = buttonTextSize / getResources().getDisplayMetrics().density;
+        btnSubmit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize);
 
         btnSubmit.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonTextSize);
         btnSubmit.setTextColor(buttonTextColor);
