@@ -325,7 +325,6 @@ public class PersianDatePicker extends DialogFragment {
         float textSize = jumpTodayTextSize / getResources().getDisplayMetrics().density;
         btnJumpToday.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize);
 
-        btnJumpToday.setTextSize(jumpTodayTextSize);
         btnJumpToday.setText(jumpTodayText);
         btnJumpToday.setTypeface(font);
     }
@@ -342,7 +341,6 @@ public class PersianDatePicker extends DialogFragment {
         float textSize = buttonTextSize / getResources().getDisplayMetrics().density;
         btnSubmit.setTextSize(TypedValue.COMPLEX_UNIT_DIP, textSize);
 
-        btnSubmit.setTextSize(TypedValue.COMPLEX_UNIT_PX, buttonTextSize);
         btnSubmit.setTextColor(buttonTextColor);
         btnSubmit.setText(buttonText);
         btnSubmit.setTypeface(font);
