@@ -1,4 +1,4 @@
-package bpc.dis.persiandatepicker.PersianDatePicker;
+package bpc.dis.persiandatepicker;
 
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -25,13 +25,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import bpc.dis.persiandatepicker.R;
-import bpc.dis.persiandatepicker.WheelPicker.WheelPicker;
+import bpc.dis.dateutilities.JalaliCalendar.JalaliCalendar;
+import bpc.dis.dateutilities.LeapYearHelper.LeapYearHelper;
+import bpc.dis.dateutilities.SolarCalendar.SolarCalendar;
 import bpc.dis.utilities.DialogSizeHelper.DialogSizeHelper;
-import bpc.dis.utilities.JalaliCalendar.JalaliCalendar;
-import bpc.dis.utilities.LeapYearHelper.LeapYearHelper;
-import bpc.dis.utilities.SolarCalendar.SolarCalendar;
 import bpc.dis.utilities.TextSizeHelper.TextSizeHelper;
+import bpc.dis.wheelpicker.WheelPicker;
 
 public class PersianDatePicker extends DialogFragment {
 
@@ -118,7 +117,7 @@ public class PersianDatePicker extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        DialogSizeHelper.defineDialogSize(getDialog().getWindow(), 0.90, 0.35);
+        DialogSizeHelper.setDialogSize(getDialog(), getActivity(), 0.90, 0.35);
     }
 
     private void loadDate() {

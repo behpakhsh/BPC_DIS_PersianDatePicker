@@ -1,4 +1,4 @@
-package bpc.dis.persiandatepicker.PersianDatePicker;
+package bpc.dis.persiandatepicker;
 
 import java.util.Date;
 

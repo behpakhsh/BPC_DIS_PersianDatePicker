@@ -39,7 +39,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.25" />
 
-    <bpc.dis.persiandatepicker.WheelPicker.WheelPicker
+    <bpc.dis.wheelpicker.WheelPicker
         android:id="@+id/wp_day"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:wheel_curved="true"
         app:wheel_item_align="center" />
 
-    <bpc.dis.persiandatepicker.WheelPicker.WheelPicker
+    <bpc.dis.wheelpicker.WheelPicker
         android:id="@+id/wp_month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
         app:wheel_curved="true"
         app:wheel_item_align="center" />
 
-    <bpc.dis.persiandatepicker.WheelPicker.WheelPicker
+    <bpc.dis.wheelpicker.WheelPicker
         android:id="@+id/wp_year"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
