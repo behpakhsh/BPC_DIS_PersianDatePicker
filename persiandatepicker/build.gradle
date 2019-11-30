@@ -35,7 +35,7 @@ dependencies {
     implementation "com.jakewharton:butterknife:10.0.0"
     annotationProcessor "com.jakewharton:butterknife-compiler:10.0.0"
 
-    implementation 'com.github.behpakhsh:BPC_DIS_Utilities:1.0.2'
+    implementation 'com.github.behpakhsh:BPC_DIS_Utilities:1.0.5'
     implementation 'com.github.behpakhsh:BPC_DIS_DateUtilities:1.0.0'
     implementation 'com.github.behpakhsh:BPC_DIS_WheelPicker:1.0.0'
 
